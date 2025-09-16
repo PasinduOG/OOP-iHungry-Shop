@@ -78,8 +78,8 @@ iHungry System
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/PasinduOG/OOP-iHungry.git
-   cd OOP-iHungry
+   git clone https://github.com/PasinduOG/OOP-iHungry-Shop.git
+   cd OOP-iHungry-Shop
    ```
 
 2. **Compile the Java program:**
