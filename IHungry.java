@@ -1,51 +1,18 @@
 import java.util.*;
-/**
- * Represents a burger order in the iHungry ordering system.
- * This class encapsulates all order-related information including
- * customer details, quantity, and order status.
- * 
- * @author PasinduOG
- * @author wasudasandaruvan (Collaborative Development)
- * @version 2.1
- * @since 2025-09-18
- */
 class Burger {
-	/** Fixed price per burger in LKR */
 	public static final double BURGER_PRICE=500;
-	/** Order status: Cancelled */
 	public static final int CANCEL=0;
-	/** Order status: Being prepared */
 	public static final int PREPARING=1;
-	/** Order status: Delivered to customer */
 	public static final int DELIVERED=2;
 	
-    /** Unique identifier for the order (format: B0001, B0002, etc.) */
     private String orderId;
-    /** Customer's phone number (10 digits starting with 0) */
     private String customerId;
-    /** Customer's full name */
     private String customerName;
-    /** Number of burgers ordered */
     private int orderQty;
-    /** Current status of the order (CANCEL, PREPARING, DELIVERED) */
     private int orderStatus;
     
-    /**
-     * Default constructor for Burger class.
-     * Creates an empty burger order object.
-     */
     public Burger(){}
 
-    /**
-     * Parameterized constructor for Burger class.
-     * Creates a burger order with specified details.
-     * 
-     * @param orderId Unique order identifier (e.g., "B0001")
-     * @param customerId Customer's phone number (10 digits)
-     * @param customerName Customer's full name
-     * @param orderQty Number of burgers ordered (must be positive)
-     * @param orderStatus Order status (0=Cancel, 1=Preparing, 2=Delivered)
-     */
     public Burger(String orderId, String customerId, String customerName, int orderQty, int orderStatus){
         this.orderId=orderId;
         this.customerId=customerId;
