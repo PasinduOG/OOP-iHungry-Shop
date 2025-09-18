@@ -35,8 +35,7 @@ class Burger {
     }
     public int getOrderStatus(){
         return orderStatus;
-    }
-    
+    } 
     public void setOrderQty(int orderQty){
 		this.orderQty=orderQty;
 	}
@@ -46,8 +45,7 @@ class Burger {
 }
 
 class IHungry{
-
-	public static Burger[] burger=new Burger[0];
+	public static Burger[] burger=new Burger[4];
 
 	public static String getOrderId(){
 		int orderCount=burger.length+1;
@@ -100,19 +98,10 @@ class IHungry{
 		}
 		return true;
 	}
-
-	public static boolean searchId(String[] arr, String customerId){
-		for(int i=0; i<arr.length; i++){
-			if(arr[i].equalsIgnoreCase(customerId)){
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static boolean searchName(String[] arr, String customerName){
-		for(int i=0; i<arr.length; i++){
-			if(arr[i].equalsIgnoreCase(customerName)){
+	
+	public static boolean search(Burger[] br,String customerId){
+		for(int i=0; i<br.length; i++){
+			if(br[i].getCustomerId().equalsIgnoreCase(customerId)){
 				return true;
 			}
 		}
@@ -249,62 +238,46 @@ class IHungry{
 			System.out.printf("%-12s %-15s %7s\n","CustomerID","Name","Total");
 			System.out.println("--------------------------------------");
 
-			String[] bestCustIdArr=new String[0];
-			String[] bestCustNameArr=new String[0];
-			double[] bestCustTotalArr=new double[burger.length];
-
+			
+			Burger[] bestCustomerArr=new Burger[0];
 			for(int i=0; i<burger.length; i++){
-				if(!searchId(bestCustIdArr,burger[i].getCustomerId())){
-					String[] tempCustomerIdArr=new String[bestCustIdArr.length+1];
-					for(int j=0; j<bestCustIdArr.length; j++){
-						tempCustomerIdArr[j]=bestCustIdArr[j];
+				if(!search(bestCustomerArr,burger[i].getCustomerId())){
+					Burger[] tempBr=new Burger[bestCustomerArr.length+1];
+					for(int j=0; j<bestCustomerArr.length; j++){
+						tempBr[j]=bestCustomerArr[j];
 					}
-					bestCustIdArr=tempCustomerIdArr;
-					bestCustIdArr[bestCustIdArr.length-1]=burger[i].getCustomerId();
+					bestCustomerArr=tempBr;
+					bestCustomerArr[bestCustomerArr.length-1]=burger[i];
 				}
 			}
-
-			for(int i=0; i<burger.length; i++){
-				if(!searchName(bestCustNameArr,burger[i].getCustomerName())){
-					String[] tempCustomerNameArr=new String[bestCustNameArr.length+1];
-					for(int j=0; j<bestCustNameArr.length; j++){
-						tempCustomerNameArr[j]=bestCustNameArr[j];
-					}
-					bestCustNameArr=tempCustomerNameArr;
-					bestCustNameArr[bestCustNameArr.length-1]=burger[i].getCustomerName();
-				}
-			}
-
-			for(int i=0; i<bestCustIdArr.length; i++){
+			
+			double[] totals=new double[bestCustomerArr.length];
+			for(int i=0; i<bestCustomerArr.length; i++){
 				double total=0;
 				for(int j=0; j<burger.length; j++){
-					if(burger[j].getCustomerId().equalsIgnoreCase(bestCustIdArr[i])){
+					if(burger[j].getCustomerId().equalsIgnoreCase(bestCustomerArr[i].getCustomerId())){
 						total+=burger[j].getOrderQty()*Burger.BURGER_PRICE;
 					}
 				}
-				bestCustTotalArr[i]=total;
+				totals[i]=total;
 			}
+			
+			for(int i=0; i<totals.length-1; i++){
+				for(int j=0; j<totals.length-1; j++){
+					if(totals[j]<totals[j+1]){
+						double tempTotal=totals[j];
+						totals[j]=totals[j+1];
+						totals[j+1]=tempTotal;
 
-			for(int i=0; i<bestCustTotalArr.length-1; i++){
-				for(int j=0; j<bestCustTotalArr.length-1; j++){
-					if(bestCustTotalArr[j]<bestCustTotalArr[j+1]){
-						String tempId=bestCustIdArr[j];
-						bestCustIdArr[j]=bestCustIdArr[j+1];
-						bestCustIdArr[j+1]=tempId;
-
-						double tempTotal=bestCustTotalArr[j];
-						bestCustTotalArr[j]=bestCustTotalArr[j+1];
-						bestCustTotalArr[j+1]=tempTotal;
-
-						String tempName=bestCustNameArr[j];
-						bestCustNameArr[j]=bestCustNameArr[j+1];
-						bestCustNameArr[j+1]=tempName;
+						Burger temp=bestCustomerArr[j];
+						bestCustomerArr[j]=bestCustomerArr[j+1];
+						bestCustomerArr[j+1]=temp;
 					}
 				}
 			}
 
-			for(int i=0; i<bestCustIdArr.length; i++){
-				System.out.printf("%-12s %-15s %8.2f\n",bestCustIdArr[i],bestCustNameArr[i],bestCustTotalArr[i]);
+			for(int i=0; i<bestCustomerArr.length; i++){
+				System.out.printf("%-12s %-15s %8.2f\n",bestCustomerArr[i].getCustomerId(),bestCustomerArr[i].getCustomerName(),totals[i]);
 				System.out.println("--------------------------------------");
 			}
 

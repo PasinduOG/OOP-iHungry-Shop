@@ -2,6 +2,11 @@
 
 A console-based burger ordering and management system built in Java, demonstrating object-oriented programming principles.
 
+![Version](https://img.shields.io/badge/version-2.0-blue.svg)
+![Java](https://img.shields.io/badge/Java-8%2B-orange.svg)
+![License](https://img.shields.io/badge/license-Educational-green.svg)
+![Last Updated](https://img.shields.io/badge/updated-September%202025-brightgreen.svg)
+
 ## 📋 Table of Contents
 
 - [Overview](#overview)
@@ -180,28 +185,32 @@ class Burger {
 #### 🏪 IHungry Class
 Main application class containing:
 - **Order Management**: Place, search, update orders
-- **Customer Management**: Customer operations
+- **Customer Management**: Customer operations and analytics
 - **Data Validation**: Input validation methods
+- **Search Operations**: Optimized search algorithms for customers and orders
 - **UI Methods**: Console interface management
-- **Utility Methods**: Array operations, formatting
+- **Utility Methods**: Array operations, dynamic resizing, and formatting
 
 ### Key Methods
 
 | Method | Purpose |
 |--------|---------|
 | `placeOrder()` | Handle new order creation |
-| `searchBestCustomer()` | Analyze and rank customers |
+| `searchBestCustomer()` | Analyze and rank customers by spending |
 | `searchOrder()` | Find orders by ID |
 | `searchCustomer()` | Customer lookup and history |
 | `viewOrders()` | Display orders by status |
 | `updateOrderDetails()` | Modify existing orders |
 | `isValidCustomerId()` | Validate phone numbers |
 | `isValidOrderId()` | Validate order ID format |
+| `search()` | Generic search method for customer arrays |
+| `extendBurgerArray()` | Dynamically resize order array |
 
 ## ⚙️ Technical Details
 
 ### Data Storage
 - **In-Memory Storage**: Uses dynamic arrays (`Burger[]`)
+- **Initial Array Size**: Fixed initial size of 4 elements, expandable as needed
 - **Array Management**: Dynamic resizing with `extendBurgerArray()`
 - **No Database**: All data lost on application exit
 
@@ -275,6 +284,20 @@ Main application class containing:
 4. **Limited Validation**: Basic input validation only
 5. **Console Only**: No graphical user interface
 
+## 🆕 Recent Updates
+
+### Code Improvements
+- **Optimized Customer Search**: Improved `searchBestCustomer()` method with better array handling
+- **Enhanced Data Structure**: Simplified customer data management using Burger objects directly
+- **Streamlined Sorting**: More efficient bubble sort implementation for customer rankings
+- **Fixed Array Initialization**: Proper initial array sizing for better memory management
+
+### Performance Enhancements
+- Removed redundant string arrays for customer data
+- Consolidated data structures for better memory efficiency
+- Improved search algorithm performance
+- Cleaner code structure with reduced method complexity
+
 ## 🔮 Future Enhancements
 
 ### Potential Improvements
@@ -311,7 +334,23 @@ This is an educational project. If you'd like to contribute or suggest improveme
 3. Make your changes
 4. Submit a pull request
 
-## 📞 Support
+## � Changelog
+
+### Version 2.0 (Latest)
+- **🔄 Refactored** `searchBestCustomer()` method for better performance
+- **✨ Enhanced** array handling with improved data structures
+- **🗑️ Removed** redundant `searchId()` and `searchName()` methods
+- **⚡ Optimized** customer ranking algorithm
+- **🔧 Fixed** initial array sizing issue
+- **📦 Consolidated** customer data management
+
+### Version 1.0
+- **🎉 Initial** release with basic order management
+- **📱 Core** features: Place order, search, update, view orders
+- **👤 Customer** management and analytics
+- **🔍 Order** tracking and status management
+
+## �📞 Support
 
 For questions or issues related to this project, please open an issue on the GitHub repository.
 
