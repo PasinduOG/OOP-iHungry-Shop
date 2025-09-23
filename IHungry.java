@@ -45,7 +45,7 @@ class Burger {
 }
 
 class IHungry{
-	public static Burger[] burger=new Burger[4];
+	public static Burger[] burger=new Burger[]{};
 
 	public static String getOrderId(){
 		int orderCount=burger.length+1;
@@ -160,10 +160,20 @@ class IHungry{
 
 			System.out.print("Enter Customer ID (phone no.) : ");
 			String customerId=input.next();
-			while(!isValidCustomerId(customerId)){
-				System.out.println("\tInvalid phone number... Try again...!\n");
-				System.out.print("Enter Customer ID (phone no.) : ");
-				customerId=input.next();
+			if(!isValidCustomerId(customerId)){
+				System.out.println("\tInvalid phone number...!\n");
+				L2:do{
+					System.out.print("Do you want to try again? (Y/N) : ");
+					String retry=input.next().toLowerCase();
+					if(retry.equals("y")){
+						continue L1;
+					}else if(retry.equals("n")){
+						break L1;
+					}else{
+						System.out.print("\tWrong option\n\n");
+						continue L2;
+					}
+				}while(true);
 			}
 			String index=getName(customerId);
 			String customerName="";
@@ -234,51 +244,55 @@ class IHungry{
 			System.out.println("|                       BEST Customer                       |");
 			System.out.println("-------------------------------------------------------------\n\n");
 
-			System.out.println("--------------------------------------");
-			System.out.printf("%-12s %-15s %7s\n","CustomerID","Name","Total");
-			System.out.println("--------------------------------------");
-
-			
-			Burger[] bestCustomerArr=new Burger[0];
-			for(int i=0; i<burger.length; i++){
-				if(!search(bestCustomerArr,burger[i].getCustomerId())){
-					Burger[] tempBr=new Burger[bestCustomerArr.length+1];
-					for(int j=0; j<bestCustomerArr.length; j++){
-						tempBr[j]=bestCustomerArr[j];
-					}
-					bestCustomerArr=tempBr;
-					bestCustomerArr[bestCustomerArr.length-1]=burger[i];
-				}
-			}
-			
-			double[] totals=new double[bestCustomerArr.length];
-			for(int i=0; i<bestCustomerArr.length; i++){
-				double total=0;
-				for(int j=0; j<burger.length; j++){
-					if(burger[j].getCustomerId().equalsIgnoreCase(bestCustomerArr[i].getCustomerId())){
-						total+=burger[j].getOrderQty()*Burger.BURGER_PRICE;
-					}
-				}
-				totals[i]=total;
-			}
-			
-			for(int i=0; i<totals.length-1; i++){
-				for(int j=0; j<totals.length-1; j++){
-					if(totals[j]<totals[j+1]){
-						double tempTotal=totals[j];
-						totals[j]=totals[j+1];
-						totals[j+1]=tempTotal;
-
-						Burger temp=bestCustomerArr[j];
-						bestCustomerArr[j]=bestCustomerArr[j+1];
-						bestCustomerArr[j+1]=temp;
-					}
-				}
-			}
-
-			for(int i=0; i<bestCustomerArr.length; i++){
-				System.out.printf("%-12s %-15s %8.2f\n",bestCustomerArr[i].getCustomerId(),bestCustomerArr[i].getCustomerName(),totals[i]);
+			if(burger.length!=0){
 				System.out.println("--------------------------------------");
+				System.out.printf("%-12s %-15s %7s\n","CustomerID","Name","Total");
+				System.out.println("--------------------------------------");
+
+
+				Burger[] bestCustomerArr=new Burger[]{};
+				for(int i=0; i<burger.length; i++){
+					if(!search(bestCustomerArr,burger[i].getCustomerId())){
+						Burger[] tempBr=new Burger[bestCustomerArr.length+1];
+						for(int j=0; j<bestCustomerArr.length; j++){
+							tempBr[j]=bestCustomerArr[j];
+						}
+						bestCustomerArr=tempBr;
+						bestCustomerArr[bestCustomerArr.length-1]=burger[i];
+					}
+				}
+
+				double[] totals=new double[bestCustomerArr.length];
+				for(int i=0; i<bestCustomerArr.length; i++){
+					double total=0;
+					for(int j=0; j<burger.length; j++){
+						if(burger[j].getCustomerId().equalsIgnoreCase(bestCustomerArr[i].getCustomerId())){
+							total+=burger[j].getOrderQty()*Burger.BURGER_PRICE;
+						}
+					}
+					totals[i]=total;
+				}
+
+				for(int i=0; i<totals.length-1; i++){
+					for(int j=0; j<totals.length-1; j++){
+						if(totals[j]<totals[j+1]){
+							double tempTotal=totals[j];
+							totals[j]=totals[j+1];
+							totals[j+1]=tempTotal;
+
+							Burger temp=bestCustomerArr[j];
+							bestCustomerArr[j]=bestCustomerArr[j+1];
+							bestCustomerArr[j+1]=temp;
+						}
+					}
+				}
+
+				for(int i=0; i<bestCustomerArr.length; i++) {
+					System.out.printf("%-12s %-15s %8.2f\n", bestCustomerArr[i].getCustomerId(), bestCustomerArr[i].getCustomerName(), totals[i]);
+					System.out.println("--------------------------------------");
+				}
+			}else{
+				System.out.println("No data found...\n");
 			}
 
 			L2:do{
@@ -306,10 +320,20 @@ class IHungry{
 
 			System.out.print("Enter order Id - ");
 			String orderId=input.next();
-			while(!isValidOrderId(orderId)){
-				System.out.println("\tInvalid Order ID...Please try again...\n");
-				System.out.print("Enter order Id - ");
-				orderId=input.next();
+			if(!isValidOrderId(orderId)){
+				System.out.println("\tInvalid Order ID...!\n");
+				L2:do{
+					System.out.print("Do you want to try again? (Y/N) : ");
+					String retry=input.next().toLowerCase();
+					if(retry.equals("y")){
+						continue L1;
+					}else if(retry.equals("n")){
+						break L1;
+					}else{
+						System.out.print("\tWrong option\n\n");
+						continue L2;
+					}
+				}while(true);
 			}
 
 			boolean haveDetails=false;
@@ -363,10 +387,20 @@ class IHungry{
 			
 			System.out.print("Enter customer Id - ");
 			String customerId=input.next();
-			while(!isValidCustomerId(customerId)){
-				System.out.println("\tInvalid phone number... Try again...!\n");
-				System.out.print("Enter Customer Id (phone no.) : ");
-				customerId=input.next();
+			if(!isValidCustomerId(customerId)){
+				System.out.println("\tInvalid phone number...!\n");
+				L2:do{
+					System.out.print("Do you want to try again? (Y/N) : ");
+					String retry=input.next().toLowerCase();
+					if(retry.equals("y")){
+						continue L1;
+					}else if(retry.equals("n")){
+						break L1;
+					}else{
+						System.out.print("\tWrong option\n\n");
+						continue L2;
+					}
+				}while(true);
 			}
 			
 			if(!indexOf(customerId)){
@@ -553,10 +587,20 @@ class IHungry{
 			
 			System.out.print("Enter order Id - ");
 			String orderId=input.next();
-			while(!isValidOrderId(orderId)){
-				System.out.println("\tInvalid Order ID...Please try again...\n");
-				System.out.print("Enter order Id - ");
-				orderId=input.next();
+			if(!isValidOrderId(orderId)){
+				System.out.println("\tInvalid Order ID...!\n");
+				L2:do{
+					System.out.print("Do you want to try again? (Y/N) : ");
+					String retry=input.next().toLowerCase();
+					if(retry.equals("y")){
+						continue L1;
+					}else if(retry.equals("n")){
+						break L1;
+					}else{
+						System.out.print("\tWrong option\n\n");
+						continue L2;
+					}
+				}while(true);
 			}
 			
 			if(isDeliveredOrderId(orderId)){
@@ -586,10 +630,10 @@ class IHungry{
 					switch(option){
 						case 1 :
 							updateQuantity(orderId);
-							break;
+							break L2;
 						case 2 :
 							updateStatus(orderId);
-							break;
+							break L2;
 						default :
 							System.out.println("\tWrong option...\n");
 							continue L2;
@@ -614,92 +658,67 @@ class IHungry{
 	
 	public static void updateQuantity(String orderId){
 		Scanner input=new Scanner(System.in);
-		L1:do{
-			clearConsole();
-			System.out.println("Quantity Update");
-			System.out.println("================");
-			for(int i=0; i<burger.length; i++){
-				if(orderId.equalsIgnoreCase(burger[i].getOrderId())){
-					System.out.printf("\nOrderID       - %s\n",burger[i].getOrderId());
-					System.out.printf("CustomerID    - %s\n",burger[i].getCustomerId());
-					System.out.printf("Name          - %s\n\n",burger[i].getCustomerName());
-					
-					L2:while(true){
-						System.out.print("Enter your quantity update value - ");
-						int qty=input.nextInt();
-						if(qty>0){
-							burger[i].setOrderQty(qty);
-							break L2;
-						}else{
-							System.out.println("\tInvalid quantity input...Please try again...\n");
-							continue L2;
-						}
+		clearConsole();
+		System.out.println("Quantity Update");
+		System.out.println("================");
+		for(int i=0; i<burger.length; i++){
+			if(orderId.equalsIgnoreCase(burger[i].getOrderId())){
+				System.out.printf("\nOrderID       - %s\n",burger[i].getOrderId());
+				System.out.printf("CustomerID    - %s\n",burger[i].getCustomerId());
+				System.out.printf("Name          - %s\n\n",burger[i].getCustomerName());
+				
+				L2:while(true){
+					System.out.print("Enter your quantity update value - ");
+					int qty=input.nextInt();
+					if(qty>0){
+						burger[i].setOrderQty(qty);
+						break L2;
+					}else{
+						System.out.println("\tInvalid quantity input...Please try again...\n");
+						continue L2;
 					}
-					
-					System.out.println("\n\tUpdate order quantity successfully...\n");
-					
-					System.out.printf("New order quantity - %d\n",burger[i].getOrderQty());
-					System.out.printf("New order value - %.2f\n\n",burger[i].getOrderQty()*Burger.BURGER_PRICE);
 				}
+				
+				System.out.println("\n\tUpdate order quantity successfully...\n");
+				
+				System.out.printf("New order quantity - %d\n",burger[i].getOrderQty());
+				System.out.printf("New order value - %.2f\n\n",burger[i].getOrderQty()*Burger.BURGER_PRICE);
 			}
-			L3:do{
-				System.out.print("Do you want to update another order details (Y/N): ");
-				String retry=input.next().toLowerCase();
-				if(retry.equals("y")){
-					updateOrderDetails();
-				}else if(retry.equals("n")){
-					mainMenu();
-				}else{
-					System.out.print("Wrong option");
-					continue L3;
-				}
-			}while(true);
-		}while(true);
+		}
 	}
 	
 	public static void updateStatus(String orderId){
 		Scanner input=new Scanner(System.in);
-		L1:do{
-			clearConsole();
-			System.out.println("Status Update");
-			System.out.println("================");
-			for(int i=0; i<burger.length; i++){
-				if(orderId.equalsIgnoreCase(burger[i].getOrderId())){
-					System.out.printf("\nOrderID       - %s\n",burger[i].getOrderId());
-					System.out.printf("CustomerID    - %s\n",burger[i].getCustomerId());
-					System.out.printf("Name          - %s\n\n",burger[i].getCustomerName());
-					
-					System.out.println("\t(0)Cancel");
-					System.out.println("\t(1)Preparing");
-					System.out.println("\t(2)Delivered");
-					
+		clearConsole();
+		System.out.println("Status Update");
+		System.out.println("================");
+		for(int i=0; i<burger.length; i++){
+			if(orderId.equalsIgnoreCase(burger[i].getOrderId())){
+				System.out.printf("\nOrderID       - %s\n",burger[i].getOrderId());
+				System.out.printf("CustomerID    - %s\n",burger[i].getCustomerId());
+				System.out.printf("Name          - %s\n\n",burger[i].getCustomerName());
+				
+				System.out.println("\t(0)Cancel");
+				System.out.println("\t(1)Preparing");
+				System.out.println("\t(2)Delivered");
+				
+				System.out.print("\nEnter new order status - ");
+				int newOrderStatus=input.nextInt();
+				while(!isOrderStatusId(newOrderStatus)){
+					System.out.println("\tInvalid status input...Please try again...");
 					System.out.print("\nEnter new order status - ");
-					int newOrderStatus=input.nextInt();
-					while(!isOrderStatusId(newOrderStatus)){
-						System.out.println("\tInvalid status input...Please try again...");
-						System.out.print("\nEnter new order status - ");
-						newOrderStatus=input.nextInt();
-					}
-					burger[i].setOrderStatus(newOrderStatus);
-					
-					System.out.println("\n\tUpdate order quantity successfully...\n");
-					
-					System.out.printf("New order status - %s\n",getStatusNameById(burger[i].getOrderStatus()));
+					newOrderStatus=input.nextInt();
 				}
+				burger[i].setOrderStatus(newOrderStatus);
+					if(newOrderStatus==Burger.CANCEL){
+					burger[i].setOrderQty(0);
+				}
+				
+				System.out.println("\n\tUpdate order quantity successfully...\n");
+				
+				System.out.printf("New order status - %s\n",getStatusNameById(burger[i].getOrderStatus()));
 			}
-			L2:do{
-				System.out.print("\n\nDo you want to update another order details (Y/N): ");
-				String retry=input.next().toLowerCase();
-				if(retry.equals("y")){
-					updateOrderDetails();
-				}else if(retry.equals("n")){
-					mainMenu();
-				}else{
-					System.out.print("Wrong option");
-					continue L2;
-				}
-			}while(true);
-		}while(true);
+		}
 	}
 
 	public static void mainMenu(){

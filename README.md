@@ -2,7 +2,7 @@
 
 A console-based burger ordering and management system built in Java, demonstrating object-oriented programming principles.
 
-![Version](https://img.shields.io/badge/version-2.1-blue.svg)
+![Version](https://img.shields.io/badge/version-2.2-blue.svg)
 ![Java](https://img.shields.io/badge/Java-8%2B-orange.svg)
 ![License](https://img.shields.io/badge/license-Educational-green.svg)
 ![Last Updated](https://img.shields.io/badge/updated-September%202025-brightgreen.svg)
@@ -220,8 +220,9 @@ Main application class containing:
 
 ### Data Storage
 - **In-Memory Storage**: Uses dynamic arrays (`Burger[]`)
-- **Initial Array Size**: Fixed initial size of 4 elements, expandable as needed
+- **Initial Array Size**: Empty array initialization (`new Burger[]{}`) for optimal memory usage
 - **Array Management**: Dynamic resizing with `extendBurgerArray()`
+- **Memory Optimization**: Starts with zero allocation, grows as needed
 - **No Database**: All data lost on application exit
 
 ### Validation Rules
@@ -295,10 +296,12 @@ Main application class containing:
 - **Environment**: Windows development machine
 
 ### Recent Updates
+- **Memory Optimization**: Improved array initialization for better memory usage
 - Enhanced array handling and data structures
 - Optimized customer ranking algorithm
 - Improved search functionality
 - Consolidated data management approaches
+- Zero initial memory allocation approach
 
 ## 🚧 Known Limitations
 
@@ -310,7 +313,13 @@ Main application class containing:
 
 ## 🔮 Future Enhancements
 
-### Potential Improvements
+### Performance Optimizations (v2.2)
+- **Memory Efficiency**: Zero initial allocation reduces memory footprint
+- **Dynamic Growth**: Array grows only when orders are placed
+- **Resource Management**: Better handling of system resources
+- **Scalability**: Improved performance for varying workloads
+
+### Potential Future Improvements
 - **Database Integration**: MySQL/PostgreSQL for data persistence
 - **GUI Development**: JavaFX or Swing interface
 - **Multi-item Menu**: Support for different food items
@@ -328,7 +337,13 @@ Main application class containing:
 
 ## 📝 Changelog
 
-### Version 2.1 (Current)
+### Version 2.2 (Current)
+- **⚡ Memory Optimization**: Changed array initialization from fixed size to empty array (`new Burger[]{}`)
+- **🔧 Performance Enhancement**: Improved memory efficiency with zero initial allocation
+- **📈 Scalability**: Better resource management for varying order volumes
+- **🏠 Local Development**: Continued local-only development approach
+
+### Version 2.1
 - **🏠 Local Development**: Transitioned to local-only development
 - **🔄 Code Refinements**: Continued optimization of core methods
 - **📚 Documentation**: Updated README for current project state
@@ -381,4 +396,4 @@ For questions about this project or Java programming concepts demonstrated here,
 
 *Built with ❤️ for learning Object-Oriented Programming concepts*
 
-**Last Updated**: September 18, 2025
+**Last Updated**: September 23, 2025
